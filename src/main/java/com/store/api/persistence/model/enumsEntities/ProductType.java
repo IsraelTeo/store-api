@@ -15,10 +15,7 @@ public class ProductType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_type_id",
-            nullable = false,
-            unique = true,
-            updatable = false)
+    @Column(name = "product_type_id", nullable = false, unique = true, updatable = false)
     private Long productTypeId;
 
     @Enumerated(EnumType.STRING)

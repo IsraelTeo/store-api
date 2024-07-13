@@ -1,7 +1,7 @@
 package com.store.api.persistence.model.enumsEntities;
 
 import com.store.api.enums.RoleEnum;
-import com.store.api.persistence.model.entities.User;
+import com.store.api.persistence.model.entities.UserEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,18 +18,13 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id",
-            nullable = false,
-            unique = true,
-            updatable = false)
+    @Column(name = "role_id", nullable = false, unique = true, updatable = false)
     private Long roleId;
 
     @Enumerated(EnumType.STRING)
     private RoleEnum role;
 
     @ManyToMany
-    @JoinTable(name="role_user",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> users;
+    @JoinTable(name="role_user", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<UserEntity> users;
 }

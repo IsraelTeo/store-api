@@ -19,28 +19,35 @@ public class Sale {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sale_id",
-            nullable = false,
-            unique = true,
-            updatable = false)
+    @Column(name = "sale_id", nullable = false, unique = true, updatable = false)
     private Long saleId;
 
     @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
-    private LocalDate date;
+    @Column(name = "create_at")
+    private LocalDate createAt;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "update_at")
+    private LocalDate updateAt;
 
     @Column(name ="total_amount",
             nullable = false)
     private double totalAmount;
 
-    @OneToMany(targetEntity = Product.class,
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Product.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Product> productList;
 
-    @OneToOne(targetEntity = Customer.class,
-            cascade = CascadeType.PERSIST)
+    @OneToOne(targetEntity = Customer.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @PrePersist
+    public void prePersist(){
+        this.createAt = LocalDate.now();
+    }
+
+    @PostUpdate
+    public void postUpdate(){
+        this.updateAt = LocalDate.now();
+    }
 }

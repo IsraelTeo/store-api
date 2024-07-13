@@ -21,28 +21,20 @@ import java.util.Set;
         discriminatorType = DiscriminatorType.STRING,
         length = 20)
 @Table(name = "users")
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id",
-            nullable = false,
-            unique = true,
-            updatable = false)
+    @Column(name = "user_id", nullable = false, unique = true, updatable = false)
     private Long userId;
 
-    @Column(nullable = false,
-            unique = true,
-            length = 255)
+    @Column(nullable = false, unique = true, length = 255)
     private String email;
 
-    @Column(nullable = false,
-            length = 255)
+    @Column(nullable = false, length = 255)
     private String password;
 
-    @ManyToMany(mappedBy = "users",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
-    private Set<Role> roles = new HashSet<>();
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Role> roles;
 
 }
