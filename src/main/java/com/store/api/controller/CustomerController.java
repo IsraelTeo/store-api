@@ -1,6 +1,5 @@
-package com.store.api.controller;
+/*package com.store.api.controller;
 
-import com.store.api.dto.CustomerDTO;
 import com.store.api.service.imple.CustomerService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -19,20 +18,6 @@ public class CustomerController {
 
     @PostMapping("/user")
     public ResponseEntity<?> createUser(@Valid @RequestBody CustomerDTO customerDTO) {
-        try {
-
-            customerService.createUser(customerDTO);
-            return new ResponseEntity<>("Customer created successfully", HttpStatus.CREATED);
-
-        } catch (EntityNotFoundException e) {
-
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-
-        } catch (Exception e) {
-
-            return new ResponseEntity<>("An error occurred while creating the customer", HttpStatus.INTERNAL_SERVER_ERROR);
-
-        }
 
     }
-}
+}*/

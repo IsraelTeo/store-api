@@ -1,11 +1,11 @@
 package com.store.api.persistence.model.entities;
 
-import com.store.api.persistence.model.enumsEntities.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -13,11 +13,15 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@EqualsAndHashCode(callSuper = false)
-@SuperBuilder
-@DiscriminatorValue("CUSTOMER")
+@EqualsAndHashCode
+@Builder
 @Entity
-public class Customer extends UserEntity {
+@Table(name = "customers")
+public class Customer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
@@ -31,11 +35,6 @@ public class Customer extends UserEntity {
     @Column(name = "phone_number", nullable = false, unique = true, updatable = false, length = 20)
     private String phoneNumber;
 
-    @OneToOne(mappedBy = "customer",
-            cascade = CascadeType.PERSIST,
-            fetch = FetchType.LAZY)
-    private Sale sale;
-
     @Temporal(TemporalType.DATE)
     @Column(name = "create_at")
     private LocalDate createAt;
@@ -43,16 +42,6 @@ public class Customer extends UserEntity {
     @Temporal(TemporalType.DATE)
     @Column(name = "update_at")
     private LocalDate updateAt;
-
-    public Customer(Long userId, String email, String password, Set<Role> roles, String firstName, String lastName,
-                    String dni, String phoneNumber, Sale sale) {
-        super(userId, email, password, roles);
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dni = dni;
-        this.phoneNumber = phoneNumber;
-        this.sale = sale;
-    }
 
     @PrePersist
     public void prePersist(){

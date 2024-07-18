@@ -1,11 +1,8 @@
-package com.store.api.service.imple;
+/*package com.store.api.service.imple;
 
-import com.store.api.dto.CustomerDTO;
-import com.store.api.persistence.model.entities.Customer;
 import com.store.api.persistence.repository.ICustomerRepository;
 import com.store.api.service.interfaces.ICustomerService;
 import com.store.api.util.mappers.ICustomerMapper;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,13 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@Service
 public class CustomerService implements ICustomerService {
 
     private final ICustomerRepository customerRepository;
-
-    private final ICustomerMapper customerMapper;
 
     @Transactional
     @Override
@@ -50,4 +45,4 @@ public class CustomerService implements ICustomerService {
     public void deleteUser(Long id) {
 
     }
-}
+}*/

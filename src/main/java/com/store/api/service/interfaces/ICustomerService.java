@@ -1,6 +1,4 @@
-package com.store.api.service.interfaces;
-
-import com.store.api.dto.CustomerDTO;
+/*package com.store.api.service.interfaces;
 
 import java.util.List;
 
@@ -15,4 +13,4 @@ public interface ICustomerService {
     List<CustomerDTO> getUsers();
 
     void deleteUser(Long id);
-}
+}*/

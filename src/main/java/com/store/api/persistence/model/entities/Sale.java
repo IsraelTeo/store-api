@@ -30,14 +30,13 @@ public class Sale {
     @Column(name = "update_at")
     private LocalDate updateAt;
 
-    @Column(name ="total_amount",
-            nullable = false)
+    @Column(name ="total_amount", nullable = false)
     private double totalAmount;
 
-    @OneToMany(targetEntity = Product.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Product> productList;
+    @ManyToMany(mappedBy = "salesList", targetEntity = Product.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Product> productsList;
 
-    @OneToOne(targetEntity = Customer.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Customer.class)
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
