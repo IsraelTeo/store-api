@@ -1,16 +1,19 @@
-/*package com.store.api.service.imple;
+package com.store.api.service.imple;
 
+import com.store.api.dto.CustomerDTO;
+import com.store.api.persistence.model.entities.Customer;
 import com.store.api.persistence.repository.ICustomerRepository;
 import com.store.api.service.interfaces.ICustomerService;
-import com.store.api.util.mappers.ICustomerMapper;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 @Service
 public class CustomerService implements ICustomerService {
 
@@ -18,31 +21,86 @@ public class CustomerService implements ICustomerService {
 
     @Transactional
     @Override
-    public void createUser(CustomerDTO customerDTO) {
+    public void createCustomer(CustomerDTO customerDTO) {
 
+        Customer customerSave = Customer.builder()
+                .firstName(customerDTO.firstName())
+                .lastName(customerDTO.lastName())
+                .dni(customerDTO.dni())
+                .phoneNumber(customerDTO.phoneNumber())
+                .build();
+
+        if(customerRepository.findByDni(customerSave.getDni()).isPresent()){
+            throw new EntityNotFoundException("The ID entered already exists in the data base");
+        }else{
+            customerRepository.save(customerSave);
+        }
     }
 
     @Transactional
     @Override
-    public void updateUser(Long id, CustomerDTO customerDTO) {
+    public void updateCustomer(Long id, CustomerDTO customerDTO) {
+
+        Optional<Customer> customerOptional = customerRepository.findById(id);
+        if(customerOptional.isPresent()){
+            customerOptional.get().setFirstName(customerDTO.firstName());
+            customerOptional.get().setLastName(customerDTO.lastName());
+            customerOptional.get().setDni(customerDTO.dni());
+            customerOptional.get().setPhoneNumber(customerDTO.phoneNumber());
+            customerRepository.save(customerOptional.get());
+        }else{
+            throw new EntityNotFoundException("The ID entered does not exist in the data base");
+        }
 
     }
 
     @Transactional(readOnly = true)
     @Override
-    public CustomerDTO getUser(Long id) {
-        return null;
+    public CustomerDTO getCustomer(Long id) {
+
+        Optional<Customer> customerOptional = customerRepository.findById(id);
+        if(customerOptional.isPresent()){
+            Customer customer = customerOptional.get();
+            return CustomerDTO.builder()
+                    .firstName(customer.getFirstName())
+                    .lastName(customer.getLastName())
+                    .dni(customer.getDni())
+                    .phoneNumber(customer.getPhoneNumber())
+                    .build();
+
+        }else{
+            throw new  EntityNotFoundException("The ID entered does not exist in the data base");
+        }
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<CustomerDTO> getUsers() {
-        return List.of();
+    public List<CustomerDTO> getCustomers() {
+
+        List<Customer> customerList = customerRepository.findAll();
+
+        if (customerList.isEmpty()) {
+            throw new EntityNotFoundException("List is empty.");
+        }else{
+            return customerList.stream()
+                    .map(customer -> new CustomerDTO(
+                            customer.getFirstName(),
+                            customer.getLastName(),
+                            customer.getDni(),
+                            customer.getPhoneNumber()))
+                    .collect(Collectors.toList());
+        }
     }
 
     @Transactional
     @Override
-    public void deleteUser(Long id) {
+    public void deleteCustomer(Long id) {
+        Optional<Customer> customer = customerRepository.findById(id);
 
+        if(customer.isPresent()) {
+            customerRepository.delete(customer.get());
+        }else{
+            throw new EntityNotFoundException("Customer not found.");
+        }
     }
-}*/
+}

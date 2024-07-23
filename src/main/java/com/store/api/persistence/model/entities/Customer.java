@@ -1,26 +1,25 @@
 package com.store.api.persistence.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
 
-@Getter
+@Builder
 @Setter
 @NoArgsConstructor
+@Getter
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Builder
 @Entity
 @Table(name = "customers")
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "customer_id", nullable = false, updatable = false, unique = true)
     private Long id;
 
     @Column(name = "first_name", nullable = false, length = 50)
@@ -43,14 +42,10 @@ public class Customer {
     @Column(name = "update_at")
     private LocalDate updateAt;
 
+    @JsonIgnore
     @PrePersist
     public void prePersist(){
         this.createAt = LocalDate.now();
-    }
-
-    @PostUpdate
-    public void postUpdate(){
-        this.updateAt = LocalDate.now();
     }
 
 }

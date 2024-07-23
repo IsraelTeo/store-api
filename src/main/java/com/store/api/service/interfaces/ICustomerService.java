@@ -1,16 +1,18 @@
-/*package com.store.api.service.interfaces;
+package com.store.api.service.interfaces;
+
+import com.store.api.dto.CustomerDTO;
 
 import java.util.List;
 
 public interface ICustomerService {
 
-    void createUser(CustomerDTO customerDTO);
+    void createCustomer(CustomerDTO customerDTO);
 
-    void updateUser(Long id, CustomerDTO customerDTO);
+    void updateCustomer(Long id, CustomerDTO customerDTO);
 
-    CustomerDTO getUser(Long id);
+    CustomerDTO getCustomer(Long id);
 
-    List<CustomerDTO> getUsers();
+    List<CustomerDTO> getCustomers();
 
-    void deleteUser(Long id);
-}*/
+    void deleteCustomer(Long id);
+}
