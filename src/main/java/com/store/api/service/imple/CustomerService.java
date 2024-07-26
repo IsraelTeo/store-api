@@ -4,6 +4,7 @@ import com.store.api.dto.CustomerDTO;
 import com.store.api.persistence.model.entities.Customer;
 import com.store.api.persistence.repository.ICustomerRepository;
 import com.store.api.service.interfaces.ICustomerService;
+import com.store.api.util.mappers.CustomerMapper;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,22 +14,19 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class CustomerService implements ICustomerService {
 
     private final ICustomerRepository customerRepository;
+
+    private final CustomerMapper customerMapper;
 
     @Transactional
     @Override
     public void createCustomer(CustomerDTO customerDTO) {
 
-        Customer customerSave = Customer.builder()
-                .firstName(customerDTO.firstName())
-                .lastName(customerDTO.lastName())
-                .dni(customerDTO.dni())
-                .phoneNumber(customerDTO.phoneNumber())
-                .build();
+        Customer customerSave = customerMapper.customerDTOToCustomer(customerDTO);
 
         if(customerRepository.findByDni(customerSave.getDni()).isPresent()){
             throw new EntityNotFoundException("The ID entered already exists in the data base");
@@ -60,13 +58,10 @@ public class CustomerService implements ICustomerService {
 
         Optional<Customer> customerOptional = customerRepository.findById(id);
         if(customerOptional.isPresent()){
+
             Customer customer = customerOptional.get();
-            return CustomerDTO.builder()
-                    .firstName(customer.getFirstName())
-                    .lastName(customer.getLastName())
-                    .dni(customer.getDni())
-                    .phoneNumber(customer.getPhoneNumber())
-                    .build();
+
+            return customerMapper.customerToCustomerDTO(customer);
 
         }else{
             throw new  EntityNotFoundException("The ID entered does not exist in the data base");

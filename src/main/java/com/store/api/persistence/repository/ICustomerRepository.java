@@ -14,4 +14,5 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     @Query("SELECT c FROM Customer c WHERE c.dni = :dni")
     Optional<Customer> findByDni(@Param("dni")String dni);
 
+
 }
