@@ -1,5 +1,6 @@
 package com.store.api.persistence.model.entities;
 
+import com.store.api.persistence.model.enumsEntities.ProductType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,5 +37,9 @@ public class Product {
     @JoinTable(name = "product_id_sale_id", joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "sale_id"))
     private List<Sale> salesList;
+
+    @OneToOne
+    @JoinColumn(name = "product_type_id")
+    private ProductType productType;
 
 }

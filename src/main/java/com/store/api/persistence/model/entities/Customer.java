@@ -36,11 +36,8 @@ public class Customer {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "create_at")
+    @JsonIgnore
     private LocalDate createAt;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "update_at")
-    private LocalDate updateAt;
 
     @JsonIgnore
     @PrePersist
