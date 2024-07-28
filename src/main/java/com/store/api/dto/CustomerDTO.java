@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
+import java.io.Serializable;
+
 @Builder
 public record CustomerDTO(@NotBlank(message = "First name is required")
                           @Size(max = 50, message = "First name must be at most 50 characters")
@@ -19,5 +21,5 @@ public record CustomerDTO(@NotBlank(message = "First name is required")
 
                           @NotBlank(message = "Phone number is required")
                           @Size(max = 20, message = "Phone number must be at most 20 characters")
-                          String phoneNumber) {
+                          String phoneNumber) implements Serializable {
 }

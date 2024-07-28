@@ -24,5 +24,4 @@ public class CustomerMapper {
                 .phoneNumber(customerDTO.phoneNumber())
                 .build();
     }
-
 }
