@@ -13,9 +13,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-@RequiredArgsConstructor
-@RequestMapping("/api/v1")
 @RestController
+@RequestMapping("/api/v1")
+@RequiredArgsConstructor
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -26,7 +26,7 @@ public class CustomerController {
             customerService.createCustomer(customerDTO);
             return ResponseEntity.created(new URI("/api/v1/customer")).build();
         }catch (EntityNotFoundException e){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().build();
         }
     }
 

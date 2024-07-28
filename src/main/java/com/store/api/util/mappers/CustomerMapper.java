@@ -9,6 +9,7 @@ public class CustomerMapper {
 
     public CustomerDTO customerToCustomerDTO(Customer customer) {
         return CustomerDTO.builder()
+                .id(customer.getId())
                 .firstName(customer.getFirstName())
                 .lastName(customer.getLastName())
                 .dni(customer.getDni())
@@ -18,6 +19,7 @@ public class CustomerMapper {
 
     public Customer customerDTOToCustomer(CustomerDTO customerDTO) {
         return Customer.builder()
+                .id(customerDTO.id())
                 .firstName(customerDTO.firstName())
                 .lastName(customerDTO.lastName())
                 .dni(customerDTO.dni())

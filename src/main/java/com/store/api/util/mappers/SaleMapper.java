@@ -15,6 +15,7 @@ public class SaleMapper {
 
     public SaleDTO saleToSaleDTO(Sale sale) {
         return SaleDTO.builder()
+                .id(sale.getId())
                 .totalAmount(sale.getTotalAmount())
                 .productsList(sale.getProductsList().stream()
                         .map(productMapper::productToProductDTO)
@@ -25,7 +26,7 @@ public class SaleMapper {
 
     public Sale saleDTOToSale(SaleDTO saleDTO) {
         return Sale.builder()
-                .saleId(saleDTO.saleId())
+                .id(saleDTO.id())
                 .totalAmount(saleDTO.totalAmount())
                 .productsList(saleDTO.productsList().stream()
                         .map(productMapper::productDTOToProduct)

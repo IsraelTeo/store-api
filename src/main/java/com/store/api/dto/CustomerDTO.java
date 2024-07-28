@@ -7,7 +7,8 @@ import lombok.Builder;
 import java.io.Serializable;
 
 @Builder
-public record CustomerDTO(@NotBlank(message = "First name is required")
+public record CustomerDTO(Long id,
+                          @NotBlank(message = "First name is required")
                           @Size(max = 50, message = "First name must be at most 50 characters")
                           String firstName,
 

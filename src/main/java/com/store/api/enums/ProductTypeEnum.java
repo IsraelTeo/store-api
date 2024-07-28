@@ -4,7 +4,7 @@ public enum ProductTypeEnum {
     FOOD,
     DRINK,
     CLEANING,
-    STATIONERY,
+    SCHOOL,
     PERSONAL_HYGIENE,
     ACCESSORY
     //POSIBLEMENTE PUEDA MANEJAR EL STOCK AQUI en un atributo de stock, y en una clase a parte, sus metodos para descontarlos y mosrar un mensaje de agotado

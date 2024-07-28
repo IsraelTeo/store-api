@@ -1,12 +1,14 @@
 package com.store.api.dto;
 
+import com.store.api.enums.ProductTypeEnum;
 import jakarta.validation.constraints.*;
 import lombok.Builder;
 
-import java.util.List;
+import java.io.Serializable;
 
 @Builder
-public record ProductDTO(@NotBlank(message = "Product name cannot be blank")
+public record ProductDTO(Long id,
+                         @NotBlank(message = "Product name cannot be blank")
                          @Size(max = 70, message = "Product name cannot exceed 50 characters")
                          String productName,
 
@@ -20,6 +22,6 @@ public record ProductDTO(@NotBlank(message = "Product name cannot be blank")
                          @DecimalMin(value = "0.01", message = "Total amount must be at least 0.01")
                          double productPrice,
 
-                         @NotEmpty(message = "Sales list cannot be empty")
-                         List<SaleDTO> salesList) {
+                         @NotNull(message = "Product name cannot be blank")
+                         ProductTypeEnum productType) implements Serializable {
 }

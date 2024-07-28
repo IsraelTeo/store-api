@@ -1,6 +1,6 @@
 package com.store.api.persistence.model.entities;
 
-import com.store.api.persistence.model.enumsEntities.ProductType;
+import com.store.api.enums.ProductTypeEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,12 +15,12 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id", nullable = false, unique = true, updatable = false)
-    private Long productId;
+    private Long id;
 
     @Column(name = "product_name", nullable = false, length = 50)
     private String productName;
@@ -38,8 +38,7 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "sale_id"))
     private List<Sale> salesList;
 
-    @OneToOne
-    @JoinColumn(name = "product_type_id")
-    private ProductType productType;
+    @Enumerated(EnumType.STRING)
+    private ProductTypeEnum productType;
 
 }

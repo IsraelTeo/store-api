@@ -41,6 +41,7 @@ public class CustomerService implements ICustomerService {
 
         Optional<Customer> customerOptional = customerRepository.findById(id);
         if(customerOptional.isPresent()){
+            customerOptional.get().setId(customerDTO.id());
             customerOptional.get().setFirstName(customerDTO.firstName());
             customerOptional.get().setLastName(customerDTO.lastName());
             customerOptional.get().setDni(customerDTO.dni());
@@ -79,6 +80,7 @@ public class CustomerService implements ICustomerService {
         }else{
             return customerList.stream()
                     .map(customer -> new CustomerDTO(
+                            customer.getId(),
                             customer.getFirstName(),
                             customer.getLastName(),
                             customer.getDni(),

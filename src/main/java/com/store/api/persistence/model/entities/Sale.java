@@ -20,7 +20,7 @@ public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sale_id", nullable = false, unique = true, updatable = false)
-    private Long saleId;
+    private Long id;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "create_at")

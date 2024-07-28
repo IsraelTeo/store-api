@@ -6,9 +6,7 @@ import lombok.Builder;
 import java.util.List;
 
 @Builder
-public record SaleDTO(@NotNull(message = "Sale ID cannot be null")
-                      Long saleId,
-
+public record SaleDTO(Long id,
                       @Positive(message = "Total amount must be greater than zero")
                       @DecimalMin(value = "0.01", message = "Total amount must be at least 0.01")
                       @Digits(integer = 10, fraction = 2,

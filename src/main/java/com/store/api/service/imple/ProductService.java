@@ -28,7 +28,7 @@ public class ProductService implements IProductService {
 
         Product productSave = productMapper.productDTOToProduct(productDTO);
 
-        Optional<Product> productOptional = productRepository.findById(productSave.getProductId());
+        Optional<Product> productOptional = productRepository.findById(productSave.getId());
         if(productOptional.isPresent()){
             throw new EntityNotFoundException("The ID entered already exists in the data base");
         }else{
@@ -43,6 +43,7 @@ public class ProductService implements IProductService {
         Optional<Product>  productOptional = productRepository.findById(id);
 
         if(productOptional.isPresent()){
+            productOptional.get().setId(productDTO.id());
             productOptional.get().setProductName(productDTO.productName());
             productOptional.get().setProductDescription(productDTO.productDescription());
             productOptional.get().setProductPrice(productDTO.productPrice());
@@ -79,6 +80,7 @@ public class ProductService implements IProductService {
         } else {
             return productList.stream()
                     .map(product -> ProductDTO.builder()
+                            .id(product.getId())
                             .productName(product.getProductName())
                             .productDescription(product.getProductDescription())
                             .productPrice(product.getProductPrice())
