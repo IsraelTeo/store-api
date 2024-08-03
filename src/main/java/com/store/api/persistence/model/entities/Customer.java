@@ -36,10 +36,8 @@ public class Customer {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "create_at")
-    @JsonIgnore
     private LocalDate createAt;
 
-    @JsonIgnore
     @PrePersist
     public void prePersist(){
         this.createAt = LocalDate.now();

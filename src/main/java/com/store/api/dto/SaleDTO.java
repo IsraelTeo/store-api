@@ -3,6 +3,7 @@ package com.store.api.dto;
 import jakarta.validation.constraints.*;
 import lombok.Builder;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Builder
@@ -17,5 +18,5 @@ public record SaleDTO(Long id,
                       List<ProductDTO> productsList,
 
                       @NotNull(message = "Customer cannot be null")
-                      CustomerDTO customer) {
+                      CustomerDTO customer) implements Serializable {
 }

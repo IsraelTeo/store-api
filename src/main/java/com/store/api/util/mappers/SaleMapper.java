@@ -2,16 +2,18 @@ package com.store.api.util.mappers;
 
 import com.store.api.dto.SaleDTO;
 import com.store.api.persistence.model.entities.Sale;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class SaleMapper {
 
-    private CustomerMapper customerMapper;
+    private final CustomerMapper customerMapper;
 
-    private ProductMapper productMapper;
+    private final ProductMapper productMapper;
 
     public SaleDTO saleToSaleDTO(Sale sale) {
         return SaleDTO.builder()

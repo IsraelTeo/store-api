@@ -32,10 +32,7 @@ public class Product{
     @Column(name = "product_price")
     private double productPrice;
 
-    @ManyToMany(targetEntity = Sale.class,
-            fetch = FetchType.LAZY)
-    @JoinTable(name = "product_id_sale_id", joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "sale_id"))
+    @ManyToMany(mappedBy = "productsList", targetEntity = Sale.class, fetch = FetchType.LAZY)
     private List<Sale> salesList;
 
     @Enumerated(EnumType.STRING)

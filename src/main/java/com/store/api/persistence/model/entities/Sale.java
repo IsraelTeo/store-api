@@ -26,14 +26,15 @@ public class Sale {
     @Column(name = "create_at")
     private LocalDate createAt;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "update_at")
-    private LocalDate updateAt;
-
     @Column(name ="total_amount", nullable = false)
     private double totalAmount;
 
-    @ManyToMany(mappedBy = "salesList", targetEntity = Product.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(targetEntity = Product.class,
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST)
+    @JoinTable(name = "product_id_sale_id",
+            joinColumns = @JoinColumn(name = "sale_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> productsList;
 
     @ManyToOne(targetEntity = Customer.class)
@@ -43,10 +44,5 @@ public class Sale {
     @PrePersist
     public void prePersist(){
         this.createAt = LocalDate.now();
-    }
-
-    @PostUpdate
-    public void postUpdate(){
-        this.updateAt = LocalDate.now();
     }
 }

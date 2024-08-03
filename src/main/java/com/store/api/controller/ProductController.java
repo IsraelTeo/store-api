@@ -64,7 +64,7 @@ public class ProductController {
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         try {
             productService.deleteProduct(id);
-            return new ResponseEntity<>("client deleted successfully", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>("product deleted successfully", HttpStatus.NO_CONTENT);
         }catch (EntityNotFoundException e){
             return ResponseEntity.notFound().build();
         }
