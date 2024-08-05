@@ -29,12 +29,8 @@ public class Sale {
     @Column(name ="total_amount", nullable = false)
     private double totalAmount;
 
-    @ManyToMany(targetEntity = Product.class,
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.PERSIST)
-    @JoinTable(name = "product_id_sale_id",
-            joinColumns = @JoinColumn(name = "sale_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @ManyToMany(targetEntity = Product.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "product_id_sale_id", joinColumns = @JoinColumn(name = "sale_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> productsList;
 
     @ManyToOne(targetEntity = Customer.class)
