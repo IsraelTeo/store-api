@@ -3,16 +3,17 @@ package com.store.api.persistence.model.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
-@Builder
 @Setter
 @NoArgsConstructor
 @Getter
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
+@SuperBuilder
 @Entity
 @Table(name = "customers")
 public class Customer {
