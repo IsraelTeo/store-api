@@ -70,6 +70,7 @@ public class CustomerController {
         return ResponseEntity.ok(response);
     }
 
+    @DeleteMapping("/{id")
     public ResponseEntity<Response> deleteCustomer(@Min(1) @PathVariable("id") Long id){
         LOGGER.info("Deleting customer.");
         customerService.deleteCustomer(id);
