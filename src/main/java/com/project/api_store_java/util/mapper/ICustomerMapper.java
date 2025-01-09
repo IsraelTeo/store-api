@@ -9,5 +9,5 @@ import org.springframework.core.convert.converter.Converter;
 public interface ICustomerMapper extends Converter<Customer, CustomerDTO> {
 
     @Override
-    CustomerDTO convert (Customer resource);
+    CustomerDTO convert(Customer resource);
 }

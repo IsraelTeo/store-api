@@ -1,10 +1,11 @@
 package com.project.api_store_java.service.implementations;
 
 import com.project.api_store_java.dto.CustomerDTO;
+import com.project.api_store_java.exception.ApiError;
+import com.project.api_store_java.exception.StoreException;
 import com.project.api_store_java.persistence.model.Customer;
 import com.project.api_store_java.persistence.repository.ICustomerRepository;
 import com.project.api_store_java.service.interfaces.ICustomerService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +31,7 @@ public class CustomerService implements ICustomerService {
         Optional<Customer> customer = customerRepository.findById(id);
         if (customer.isEmpty()) {
             LOGGER.warn("Customer with ID {} not found", id);
-            throw new EntityNotFoundException("Customer not found");
+            throw new StoreException(ApiError.CUSTOMER_NOT_FOUND);
         }
         return conversionService.convert(customer, CustomerDTO.class);
     }
@@ -43,9 +43,7 @@ public class CustomerService implements ICustomerService {
             LOGGER.info("Customer list is empty");
             return Collections.emptyList();
         }
-        return customerList.stream()
-                .map(customer -> conversionService.convert(customer, CustomerDTO.class))
-                .collect(Collectors.toList());
+        return customerList.stream().map(customer -> conversionService.convert(customer, CustomerDTO.class)).toList();
     }
 
     @Override
@@ -60,7 +58,7 @@ public class CustomerService implements ICustomerService {
         Optional<Customer> customerOptional = customerRepository.findById(id);
         if (customerOptional.isEmpty()) {
             LOGGER.warn("Customer with ID {} already exists, cannot be updated.", id);
-            throw new EntityNotFoundException("Customer not found");
+            throw new StoreException(ApiError.CUSTOMER_ALREADY_EXISTS);
         }
         Customer customer = conversionService.convert(customerDTO, Customer.class);
         assert customer != null;
@@ -74,17 +72,13 @@ public class CustomerService implements ICustomerService {
         Optional<Customer> customerOptional = customerRepository.findById(id);
         if (customerOptional.isEmpty()) {
             LOGGER.warn("Customer with ID {} not found, cannot be deleted.", id);
-            throw new EntityNotFoundException("Customer not found");
+            throw new StoreException(ApiError.CUSTOMER_NOT_FOUND);
         }
         customerRepository.deleteById(id);
     }
 
     private Customer updateCustomerFields(Customer customer) {
-        return Customer.builder()
-                .firstName(customer.getFirstName())
-                .lastName(customer.getLastName())
-                .dni(customer.getDni())
-                .phoneNumber(customer.getPhoneNumber())
-                .build();
+        return Customer.builder().firstName(customer.getFirstName()).lastName(customer.getLastName())
+                .dni(customer.getDni()).phoneNumber(customer.getPhoneNumber()).build();
     }
 }

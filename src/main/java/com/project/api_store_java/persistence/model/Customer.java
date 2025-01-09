@@ -38,7 +38,7 @@ public class Customer {
     private LocalDate createAt;
 
     @PrePersist
-    public void prePersist(){
+    public void prePersist() {
         this.createAt = LocalDate.now();
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@EqualsAndHashCode(exclude = {"productsList"})
+@EqualsAndHashCode(exclude = { "productsList" })
 @Builder
 @Entity
 @Table(name = "sales")
@@ -22,24 +22,14 @@ public class Sale {
     @Column(name = "sale_id", nullable = false, unique = true, updatable = false)
     private Long id;
 
-    @Column(name ="total_amount", nullable = false)
+    @Column(name = "total_amount", nullable = false)
     private double totalAmount;
 
-    @ManyToMany(
-            targetEntity = Product.class,
-            fetch = FetchType.EAGER
-    )
-    @JoinTable(
-            name = "product_id_sale_id",
-            joinColumns = @JoinColumn(name = "sale_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
+    @ManyToMany(targetEntity = Product.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "product_id_sale_id", joinColumns = @JoinColumn(name = "sale_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> productsList;
 
-    @ManyToOne(
-            targetEntity = Customer.class,
-            cascade = CascadeType.PERSIST
-    )
+    @ManyToOne(targetEntity = Customer.class, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
@@ -48,7 +38,7 @@ public class Sale {
     private LocalDate createAt;
 
     @PrePersist
-    public void prePersist(){
+    public void prePersist() {
         this.createAt = LocalDate.now();
     }
 }

@@ -19,73 +19,49 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 public class CustomerController {
 
-    private static final Logger LOGGER   = LoggerFactory.getLogger(CustomerController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomerController.class);
 
     private final CustomerService customerService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Response> getCustomerById(@Min(1) @PathVariable("id") Long id){
+    public ResponseEntity<Response> getCustomerById(@Min(1) @PathVariable("id") Long id) {
         LOGGER.info("Getting employee by id {}.", id);
         CustomerDTO customer = customerService.getCustomer(id);
-        Response response = Response.builder()
-                .messageType("success")
-                .message("Customer found:")
-                .data(customer)
-                .build();
+        Response response = Response.builder().message("Customer found:").data(customer).build();
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Response> getAllCustomers(){
+    public ResponseEntity<Response> getAllCustomers() {
         LOGGER.info("Getting all customers.");
-        Response response = Response.builder()
-                .messageType("success")
-                .message("Customer found:")
-                .data(customerService.getAllCustomers())
+        Response response = Response.builder().message("Customers found:").data(customerService.getAllCustomers())
                 .build();
         return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ResponseEntity<Response> saveCustomer(@RequestBody @Valid CustomerDTO customerDTO){
+    public ResponseEntity<Response> saveCustomer(@RequestBody @Valid CustomerDTO customerDTO) {
         LOGGER.info("Saving customer.");
         customerService.saveCustomer(customerDTO);
-        Response response = Response.builder()
-                .messageType("success")
-                .message("Customer saved successfully:")
-                .data(null)
-                .build();
+        Response response = Response.builder().message("Customer saved successfully:").data(null).build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Response> updateCustomer(@Min(1) @PathVariable("id") Long id, @RequestBody @Valid CustomerDTO customerDTO){
+    public ResponseEntity<Response> updateCustomer(@Min(1) @PathVariable("id") Long id,
+            @RequestBody @Valid CustomerDTO customerDTO) {
         LOGGER.info("Updating customer.");
         CustomerDTO customerUpdated = customerService.updateCustomer(id, customerDTO);
-        Response response = Response.builder()
-                .messageType("success")
-                .message("Customer updated successfully:")
-                .data(customerUpdated)
-                .build();
+        Response response = Response.builder().message("Customer updated successfully:").data(customerUpdated).build();
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/{id")
-    public ResponseEntity<Response> deleteCustomer(@Min(1) @PathVariable("id") Long id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Response> deleteCustomer(@Min(1) @PathVariable("id") Long id) {
         LOGGER.info("Deleting customer.");
         customerService.deleteCustomer(id);
-        Response response = Response.builder()
-                .messageType("success")
-                .message("Customer deleted successfully:")
-                .data(null)
-                .build();
+        Response response = Response.builder().message("Customer deleted successfully:").data(null).build();
         return ResponseEntity.ok(response);
     }
-
-
-
-
-
-
 
 }
