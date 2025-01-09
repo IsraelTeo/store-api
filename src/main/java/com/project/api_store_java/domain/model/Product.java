@@ -1,4 +1,4 @@
-package com.project.api_store_java.persistence.model;
+package com.project.api_store_java.domain.model;
 
 import jakarta.persistence.*;
 import lombok.*;
