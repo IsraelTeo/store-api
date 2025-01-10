@@ -11,10 +11,6 @@ import java.util.List;
 public record SaleDTO(
         Long id,
 
-        @NotNull(message = "Total amount is required.")
-        @Min(value = 0, message = "Total amount must be a positive number.")
-        Double totalAmount,
-
         @NotEmpty(message = "The product IDs list cannot be empty.")
         List<@NotNull(message = "Product ID cannot be null.") @Min(value = 1, message = "Product ID must be a positive number.") Long> productIds,
 

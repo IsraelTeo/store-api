@@ -108,6 +108,13 @@ public class SaleService implements ISaleService {
             throw new StoreException(ApiError.SALE_NOT_FOUND);
         }
 
+
         saleRepository.deleteById(id);
     }
+
+    //Obtener la lista de productos de una determinada venta
+    //Obtener la sumatoria del monto y también cantidad total de ventas de un determinado día
+
+   // Obtener el codigo_venta, el total, la cantidad de productos, el nombre del cliente y el
+    //apellido del cliente de la venta con el monto más alto de todas.
 }
