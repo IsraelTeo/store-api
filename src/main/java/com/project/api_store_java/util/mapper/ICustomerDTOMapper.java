@@ -1,7 +1,7 @@
 package com.project.api_store_java.util.mapper;
 
 import com.project.api_store_java.dto.CustomerDTO;
-import com.project.api_store_java.persistence.model.Customer;
+import com.project.api_store_java.domain.model.Customer;
 import org.mapstruct.Mapper;
 import org.springframework.core.convert.converter.Converter;
 

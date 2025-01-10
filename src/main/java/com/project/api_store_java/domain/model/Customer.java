@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+@Entity
 @Setter
 @NoArgsConstructor
 @Getter
@@ -12,7 +13,6 @@ import java.time.LocalDate;
 @ToString
 @EqualsAndHashCode
 @Builder
-@Entity
 @Table(name = "customers")
 public class Customer {
 

@@ -6,6 +6,8 @@ public enum ApiError {
     CUSTOMER_NOT_FOUND(HttpStatus.NOT_FOUND, "Customer noy found"),
     ARGUMENT_NOT_VALID(HttpStatus.BAD_REQUEST, "Argument not valid"),
     CUSTOMER_ALREADY_EXISTS(HttpStatus.CONFLICT, "Employee already exists"),
+    SALE_NOT_FOUND(HttpStatus.NOT_FOUND, "Sale not found"),
+    PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "Product not found"),
     CONVERSION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "Conversion failed"),
     GET_ROLE_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "Get role failed"),
     INCORRECT_PASSWORD(HttpStatus.UNAUTHORIZED, "Incorrect password"),

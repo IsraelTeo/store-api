@@ -6,6 +6,7 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,7 +14,6 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode(exclude = { "productsList" })
 @Builder
-@Entity
 @Table(name = "sales")
 public class Sale {
 
@@ -25,11 +25,21 @@ public class Sale {
     @Column(name = "total_amount", nullable = false)
     private double totalAmount;
 
-    @ManyToMany(targetEntity = Product.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "product_id_sale_id", joinColumns = @JoinColumn(name = "sale_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @ManyToMany(
+            targetEntity = Product.class,
+            fetch = FetchType.EAGER
+    )
+    @JoinTable(
+            name = "product_id_sale_id",
+            joinColumns = @JoinColumn(name = "sale_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
     private List<Product> productsList;
 
-    @ManyToOne(targetEntity = Customer.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(
+            targetEntity = Customer.class,
+            cascade = CascadeType.PERSIST
+    )
     @JoinColumn(name = "customer_id")
     private Customer customer;
 

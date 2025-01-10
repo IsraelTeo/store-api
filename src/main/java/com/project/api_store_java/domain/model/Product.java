@@ -6,6 +6,7 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,7 +14,6 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode(exclude = { "salesList" })
 @Builder
-@Entity
 @Table(name = "products")
 public class Product {
 
@@ -29,9 +29,15 @@ public class Product {
     private String productDescription;
 
     @Column(name = "product_price")
-    private double productPrice;
+    private Double productPrice;
 
-    @ManyToMany(mappedBy = "productsList", targetEntity = Sale.class, fetch = FetchType.LAZY)
+    private Integer stock;
+
+    @ManyToMany(
+            mappedBy = "productsList",
+            targetEntity = Sale.class,
+            fetch = FetchType.LAZY
+    )
     private List<Sale> salesList;
 
     @Temporal(TemporalType.DATE)
